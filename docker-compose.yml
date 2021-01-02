@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  sample:
+    container_name: sample
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  mongodb:
+    image: 'mongo'
+    container_name: 'mongodb-container'
+    environment: 
+      - MONGO_INITDB_DATABASE = guoYuBanDatabase
+      - MONGO_INITDB_ROOT = guoYuBanUser
+      - MONGO_INITDB_PASSWORD = $up3rDup3rPa$$w0rd
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017:27017'
